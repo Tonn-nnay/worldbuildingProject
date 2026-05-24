@@ -3,7 +3,7 @@
 services:
   frontend:
     image: node:24-bullseye
-    command: sh -c "npm i && npm run dev"
+    command: sh -c "cp next.config.mjs ./next.config.mjs && npm i && npm run dev"
     working_dir: /app
     ports:
       - "3000:3000"
