@@ -1,0 +1,30 @@
+## docker compose -f docker-compose.DEV.yml up --build
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.DEV
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    networks:
+      - general
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.DEV
+    ports:
+      - "80:80"
+    depends_on:
+      frontend:
+        condition: service_started
+    networks:
+      - general
+
+networks:
+  general:
+    driver: bridge
+    name: general
